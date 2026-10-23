@@ -7,13 +7,14 @@ import '@/animations'
 import { Layout } from '@/pages/layout'
 import { Login } from '@/pages/login'
 import { Demo } from '@/pages/demo'
+import { Chat } from '@/pages/chat'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Layout />,
     children: [
-      { index: true, element: <Login /> },   // /
+      { index: true, element: <Chat /> },   // /
       { path: 'login', element: <Login /> }, // /login
       { path: 'demo', element: <Demo /> },   // /demo
     ],
