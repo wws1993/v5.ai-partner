@@ -1,4 +1,9 @@
+import { Conversation } from '@/components/Conversation'
 
 export function Chat() {
-  return <div className="size-full h-60 bg-blue-100 font-bold text-2xl">chat page</div>
+  return (
+    <div className="flex size-full items-stretch justify-start md:py-8 md:pl-0">
+      <Conversation />
+    </div>
+  )
 }
