@@ -4,25 +4,36 @@ import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
 import '@/animations'
-import { Layout } from '@/pages/layout'
-import { Login } from '@/pages/login'
-import { Demo } from '@/pages/demo'
-import { Chat } from '@/pages/chat'
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Layout />,
-    children: [
-      { index: true, element: <Chat /> },   // /
-      { path: 'login', element: <Login /> }, // /login
-      { path: 'demo', element: <Demo /> },   // /demo
-    ],
-  },
-])
+async function bootstrap() {
+  /** 开发环境启用 Mock.js 拦截 Ajax */
+  if (import.meta.env.DEV) {
+    await import('@/mock')
+  }
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <RouterProvider router={router} />
-  </StrictMode>,
-)
+  const { Layout } = await import('@/pages/layout')
+  const { Login } = await import('@/pages/login')
+  const { Demo } = await import('@/pages/demo')
+  const { Chat } = await import('@/pages/chat')
+
+  /** 应用路由表 */
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <Layout />,
+      children: [
+        { index: true, element: <Chat /> },
+        { path: 'login', element: <Login /> },
+        { path: 'demo', element: <Demo /> },
+      ],
+    },
+  ])
+
+  createRoot(document.getElementById('root')!).render(
+    <StrictMode>
+      <RouterProvider router={router} />
+    </StrictMode>,
+  )
+}
+
+void bootstrap()
